@@ -1,0 +1,62 @@
+name: Deploy to Firebase Hosting on merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create production environment file
+        run: |
+          cat > src/app/environments/environment.prod.ts << 'EOF'
+          export const environment = {
+            production: true,
+            useDevAuth: false,
+            firebase: {
+              apiKey: '${{ secrets.FIREBASE_API_KEY }}',
+              authDomain: 'monster-flight-challenge.firebaseapp.com',
+              projectId: 'monster-flight-challenge',
+              storageBucket: 'monster-flight-challenge.firebasestorage.app',
+              messagingSenderId: '187465463123',
+              appId: '1:187465463123:web:0f6d91b69b76ee1bef5da6',
+              measurementId: 'G-XBK87NC0DD',
+            },
+            flightApi: {
+              url: 'https://us-central1-crm-sdk.cloudfunctions.net/flightInfoChallenge',
+              token: '${{ secrets.FLIGHT_API_TOKEN }}',
+              candidate: 'Sayini Anirudh',
+            },
+            aeroDataBox: {
+              apiKey: '${{ secrets.AERODATABOX_API_KEY }}',
+              baseUrl: 'https://aerodatabox.p.rapidapi.com',
+              host: 'aerodatabox.p.rapidapi.com',
+            },
+          };
+          EOF
+
+      - name: Build for production
+        run: npx ng build --configuration production
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: monster-flight-challenge
