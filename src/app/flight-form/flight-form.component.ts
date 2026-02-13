@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -39,7 +39,7 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatRadioModule,
-    JsonPipe,
+
   ],
   template: `
     @if (submissionState() === 'success') {
@@ -179,8 +179,10 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
                   @if (isVerifying()) {
                     <mat-spinner diameter="18"></mat-spinner>
                   } @else {
-                    <mat-icon>radar</mat-icon>
-                    Verify
+                    <ng-container>
+                      <mat-icon>radar</mat-icon>
+                      Verify
+                    </ng-container>
                   }
                 </button>
               </div>
@@ -302,8 +304,10 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
                   <mat-spinner diameter="20"></mat-spinner>
                   <span>Submitting...</span>
                 } @else {
-                  <mat-icon>send</mat-icon>
-                  <span>Submit Flight Details</span>
+                  <ng-container>
+                    <mat-icon>send</mat-icon>
+                    <span>Submit Flight Details</span>
+                  </ng-container>
                 }
               </button>
             </form>
