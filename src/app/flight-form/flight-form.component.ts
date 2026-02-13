@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
 import { FlightInfoPayload, FlightLeg } from '../models/flight-info';
-import { FlightService } from './flight.service';
+import { FlightService, CrmResponse } from './flight.service';
 import { FlightValidationService } from '../services/flight-validation.service';
 
 function futureDateValidator(control: AbstractControl): ValidationErrors | null {
@@ -38,6 +39,7 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatRadioModule,
+    JsonPipe,
   ],
   template: `
     @if (submissionState() === 'success') {
@@ -62,6 +64,7 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
               {{ submittedData()?.numOfGuests }} guests
             </div>
           </div>
+
           <button mat-raised-button color="primary" (click)="resetForm()" class="reset-btn">
             <mat-icon>add</mat-icon>
             Submit Another Flight
@@ -682,6 +685,43 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       color: #00c853 !important;
     }
 
+    .crm-response {
+      margin-bottom: 24px;
+      border-radius: 12px;
+      background: rgba(0, 200, 83, 0.04);
+      border: 1px solid rgba(0, 200, 83, 0.12);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .crm-response-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: rgba(0, 200, 83, 0.08);
+      font-size: 13px;
+      font-weight: 600;
+      color: #00c853;
+    }
+
+    .crm-response-header mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      color: #00c853 !important;
+    }
+
+    .crm-response-body {
+      padding: 14px 16px;
+      margin: 0;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
     .reset-btn {
       gap: 6px;
     }
@@ -733,6 +773,7 @@ export class FlightFormComponent {
   submissionError = signal('');
   submittedData = signal<FlightInfoPayload | null>(null);
 
+  crmResponse = signal<CrmResponse | null>(null);
   flightVerified = signal(false);
   flightWarning = signal('');
   isVerifying = signal(false);
@@ -828,7 +869,8 @@ export class FlightFormComponent {
     };
 
     try {
-      await this.flightService.submitFlightInfo(payload);
+      const response = await this.flightService.submitFlightInfo(payload);
+      this.crmResponse.set(response);
       this.submittedData.set(payload);
       this.submissionState.set('success');
     } catch (error: unknown) {
@@ -842,6 +884,7 @@ export class FlightFormComponent {
     this.flightForm.reset();
     this.submissionState.set('idle');
     this.submittedData.set(null);
+    this.crmResponse.set(null);
     this.flightVerified.set(false);
     this.flightWarning.set('');
     this.availableLegs.set([]);

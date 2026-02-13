@@ -41,7 +41,7 @@ __screenshots__/
 
 src/app/environments/environment.ts
 src/app/environments/environment.prod.ts
-
+DEPLOYMENT_GUIDE.md
 # System files
 .DS_Store
 Thumbs.db
