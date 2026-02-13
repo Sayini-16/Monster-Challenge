@@ -1,0 +1,210 @@
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme((color: (primary: mat.$green-palette,
+        tertiary: mat.$yellow-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+}
+
+/* ── Premium Brand Tokens ── */
+:root {
+  --mrg-dark-1: #0a0a1a;
+  --mrg-dark-2: #12122a;
+  --mrg-dark-3: #1a1a3e;
+  --mrg-green: #00c853;
+  --mrg-green-glow: rgba(0, 200, 83, 0.25);
+  --mrg-green-dark: #00a844;
+  --mrg-green-subtle: rgba(0, 200, 83, 0.08);
+  --mrg-gold: #ffd54f;
+  --mrg-text: #e0e0e0;
+  --mrg-text-dim: #9e9e9e;
+  --mrg-text-white: #ffffff;
+  --mrg-glass: rgba(255, 255, 255, 0.06);
+  --mrg-glass-border: rgba(255, 255, 255, 0.1);
+  --mrg-glass-strong: rgba(255, 255, 255, 0.1);
+  --mrg-card-bg: rgba(18, 18, 42, 0.85);
+  --mrg-radius: 16px;
+  --mrg-radius-sm: 10px;
+  --mrg-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --mrg-font-heading: 'Poppins', sans-serif;
+  --mrg-font-body: 'Roboto', sans-serif;
+  --mrg-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Animated Background ── */
+body {
+  color-scheme: dark;
+  background: var(--mrg-dark-1);
+  color: var(--mrg-text);
+  font-family: var(--mrg-font-body);
+  margin: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 200, 83, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0, 100, 200, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(100, 50, 200, 0.03) 0%, transparent 60%);
+  z-index: -1;
+  animation: bgShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes bgShift {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+}
+
+/* ── Global Heading Style ── */
+h1,
+h2,
+h3 {
+  font-family: var(--mrg-font-heading) !important;
+  color: var(--mrg-text-white);
+}
+
+/* ── Toolbar ── */
+mat-toolbar {
+  background: rgba(10, 10, 26, 0.8) !important;
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  color: var(--mrg-text-white) !important;
+  border-bottom: 1px solid var(--mrg-glass-border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Green Primary Buttons ── */
+.mat-mdc-raised-button.mat-primary {
+  background: linear-gradient(135deg, var(--mrg-green) 0%, var(--mrg-green-dark) 100%) !important;
+  color: #0a0a1a !important;
+  border-radius: var(--mrg-radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: none;
+  box-shadow: 0 4px 16px var(--mrg-green-glow);
+  transition: var(--mrg-transition);
+}
+
+.mat-mdc-raised-button.mat-primary:hover:not([disabled]) {
+  box-shadow: 0 6px 24px rgba(0, 200, 83, 0.4);
+  transform: translateY(-2px);
+}
+
+.mat-mdc-raised-button.mat-primary:active:not([disabled]) {
+  transform: translateY(0);
+}
+
+.mat-mdc-raised-button[disabled] {
+  opacity: 0.4 !important;
+}
+
+/* ── Mat Card (Glass) ── */
+.mat-mdc-card {
+  background: var(--mrg-card-bg) !important;
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border-radius: var(--mrg-radius) !important;
+  border: 1px solid var(--mrg-glass-border) !important;
+  box-shadow: var(--mrg-shadow) !important;
+  color: var(--mrg-text) !important;
+}
+
+/* ── Form Fields (Dark theme) ── */
+.mat-mdc-form-field {
+  --mat-form-field-container-text-color: var(--mrg-text);
+  --mdc-filled-text-field-label-text-color: var(--mrg-text-dim);
+  --mdc-outlined-text-field-label-text-color: var(--mrg-text-dim);
+  --mdc-outlined-text-field-outline-color: var(--mrg-glass-border);
+  --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.25);
+  --mdc-outlined-text-field-focus-outline-color: var(--mrg-green);
+  --mdc-outlined-text-field-input-text-color: var(--mrg-text-white);
+  --mdc-outlined-text-field-focus-label-text-color: var(--mrg-green);
+}
+
+.mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  background: var(--mrg-glass) !important;
+  border-radius: var(--mrg-radius-sm) !important;
+}
+
+.mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading,
+.mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing,
+.mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__notch {
+  border-color: var(--mrg-glass-border) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__trailing,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__notch {
+  border-color: var(--mrg-green) !important;
+}
+
+/* ── Icon colors ── */
+.mat-mdc-form-field .mat-mdc-icon-button,
+.mat-mdc-form-field .mat-icon {
+  color: var(--mrg-text-dim) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-icon {
+  color: var(--mrg-green) !important;
+}
+
+/* ── Stroked Button ── */
+.mat-mdc-outlined-button,
+.mdc-button--outlined {
+  border-color: var(--mrg-green) !important;
+  color: var(--mrg-green) !important;
+  border-radius: var(--mrg-radius-sm) !important;
+}
+
+/* ── Radio buttons ── */
+.mat-mdc-radio-button .mdc-radio__outer-circle {
+  border-color: var(--mrg-text-dim) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__outer-circle {
+  border-color: var(--mrg-green) !important;
+}
+
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__inner-circle {
+  border-color: var(--mrg-green) !important;
+}
+
+/* ── Datepicker ── */
+.mat-datepicker-toggle {
+  color: var(--mrg-text-dim) !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--mrg-dark-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
