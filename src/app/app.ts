@@ -38,30 +38,32 @@ import { AuthService } from './auth/auth.service';
       z-index: 1000;
       padding: 0 24px;
       height: 64px;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .brand-icon-wrap {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(0, 200, 83, 0.2), rgba(0, 200, 83, 0.05));
-      border: 1px solid rgba(0, 200, 83, 0.3);
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: rgba(140, 198, 63, 0.12);
+      border: 1px solid rgba(140, 198, 63, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .brand-icon {
-      font-size: 22px;
-      width: 22px;
-      height: 22px;
-      color: #00c853;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      color: #8cc63f;
     }
 
     .brand-text {
@@ -71,23 +73,23 @@ import { AuthService } from './auth/auth.service';
     }
 
     .brand-name {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 20px;
-      letter-spacing: 0.5px;
-      color: #ffffff;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+      color: #222222;
     }
 
     .brand-highlight {
-      color: #00c853;
+      color: #8cc63f;
     }
 
     .brand-sub {
       font-size: 10px;
-      color: rgba(255, 255, 255, 0.45);
+      color: #888888;
       letter-spacing: 2px;
       text-transform: uppercase;
-      font-weight: 400;
+      font-weight: 500;
     }
 
     .spacer {
@@ -95,19 +97,21 @@ import { AuthService } from './auth/auth.service';
     }
 
     .logout-btn {
-      color: rgba(255, 255, 255, 0.7) !important;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
+      color: #555555 !important;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
       padding: 0 16px;
-      height: 38px;
+      height: 36px;
       font-size: 13px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      transition: all 0.25s ease;
     }
 
     .logout-btn:hover {
-      background: rgba(255, 255, 255, 0.08) !important;
-      border-color: rgba(255, 255, 255, 0.25);
-      color: #ffffff !important;
+      background: #f7f7f7 !important;
+      border-color: #ccc;
+      color: #222222 !important;
     }
 
     .app-content {
@@ -129,7 +133,7 @@ import { AuthService } from './auth/auth.service';
       }
 
       .brand-name {
-        font-size: 18px;
+        font-size: 16px;
       }
     }
   `,

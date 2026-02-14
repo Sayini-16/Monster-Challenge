@@ -38,7 +38,7 @@ jobs:
               measurementId: 'G-XBK87NC0DD',
             },
             flightApi: {
-              url: 'https://us-central1-crm-sdk.cloudfunctions.net/flightInfoChallenge',
+              url: '${{ secrets.FLIGHT_API_URL }}',
               token: '${{ secrets.FLIGHT_API_TOKEN }}',
               candidate: 'Sayini Anirudh',
             },
@@ -63,7 +63,7 @@ jobs:
               measurementId: 'G-XBK87NC0DD',
             },
             flightApi: {
-              url: 'https://us-central1-crm-sdk.cloudfunctions.net/flightInfoChallenge',
+              url: '${{ secrets.FLIGHT_API_URL }}',
               token: '${{ secrets.FLIGHT_API_TOKEN }}',
               candidate: 'Sayini Anirudh',
             },

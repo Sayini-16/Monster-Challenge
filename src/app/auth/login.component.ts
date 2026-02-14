@@ -23,11 +23,6 @@ import { AuthService } from './auth.service';
   ],
   template: `
     <div class="login-container">
-      <!-- Floating orbs -->
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-
       <mat-card class="login-card">
         <div class="login-brand">
           <div class="logo-ring">
@@ -111,59 +106,7 @@ import { AuthService } from './auth.service';
       align-items: center;
       min-height: 100vh;
       padding: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* ── Floating Orbs ── */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.5;
-      z-index: -1;
-    }
-
-    .orb-1 {
-      width: 400px;
-      height: 400px;
-      background: rgba(0, 200, 83, 0.12);
-      top: -100px;
-      right: -100px;
-      animation: float1 15s ease-in-out infinite;
-    }
-
-    .orb-2 {
-      width: 300px;
-      height: 300px;
-      background: rgba(0, 100, 255, 0.08);
-      bottom: -50px;
-      left: -50px;
-      animation: float2 18s ease-in-out infinite;
-    }
-
-    .orb-3 {
-      width: 200px;
-      height: 200px;
-      background: rgba(255, 213, 79, 0.06);
-      top: 50%;
-      left: 60%;
-      animation: float3 12s ease-in-out infinite;
-    }
-
-    @keyframes float1 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-60px, 40px); }
-    }
-
-    @keyframes float2 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(40px, -50px); }
-    }
-
-    @keyframes float3 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-30px, -30px); }
+      background: #f7f7f7;
     }
 
     /* ── Card ── */
@@ -171,68 +114,64 @@ import { AuthService } from './auth.service';
       width: 100%;
       max-width: 440px;
       padding: 44px 36px 32px;
-      animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: cardEnter 0.5s ease-out;
     }
 
     @keyframes cardEnter {
       from {
         opacity: 0;
-        transform: translateY(24px) scale(0.96);
+        transform: translateY(16px);
       }
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
     }
 
     /* ── Brand ── */
     .login-brand {
       text-align: center;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
     }
 
     .logo-ring {
-      width: 72px;
-      height: 72px;
+      width: 68px;
+      height: 68px;
       margin: 0 auto 16px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(0, 200, 83, 0.15), rgba(0, 200, 83, 0.03));
-      border: 1px solid rgba(0, 200, 83, 0.25);
+      border-radius: 16px;
+      background: rgba(140, 198, 63, 0.1);
+      border: 1px solid rgba(140, 198, 63, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: pulse 3s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.1); }
-      50% { box-shadow: 0 0 24px 4px rgba(0, 200, 83, 0.12); }
     }
 
     .login-logo {
-      font-size: 32px;
-      width: 32px;
-      height: 32px;
-      color: #00c853 !important;
+      font-size: 30px;
+      width: 30px;
+      height: 30px;
+      color: #8cc63f !important;
     }
 
     .login-title {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 28px;
-      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      color: #222222;
       margin: 0;
       letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .login-title .highlight {
-      color: #00c853;
+      color: #8cc63f;
     }
 
     .login-subtitle {
-      color: rgba(255, 255, 255, 0.45);
+      color: #888888;
       font-size: 14px;
       margin: 8px 0 0;
+      font-family: 'Open Sans', sans-serif;
     }
 
     /* ── Fields ── */
@@ -240,12 +179,17 @@ import { AuthService } from './auth.service';
       width: 100%;
     }
 
+    form .full-width {
+      margin-bottom: 6px;
+    }
+
     .login-button {
       margin-top: 8px;
-      height: 50px;
-      font-size: 16px;
-      font-weight: 600;
+      height: 48px;
+      font-size: 15px;
+      font-weight: 700;
       letter-spacing: 0.5px;
+      border-radius: 4px;
     }
 
     .error-banner {
@@ -254,20 +198,36 @@ import { AuthService } from './auth.service';
       gap: 8px;
       padding: 12px 14px;
       margin-bottom: 16px;
-      border-radius: 10px;
-      background: rgba(198, 40, 40, 0.12);
-      border: 1px solid rgba(198, 40, 40, 0.2);
-      color: #ef5350;
+      border-radius: 4px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #d32f2f;
       font-size: 14px;
+    }
+
+    .error-banner mat-icon {
+      color: #d32f2f !important;
     }
 
     .login-footer {
       text-align: center;
-      margin: 24px 0 0;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.25);
-      letter-spacing: 1.5px;
+      margin: 28px 0 0;
+      font-size: 11px;
+      color: #aaaaaa;
+      letter-spacing: 2px;
       text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 32px 20px 24px;
+      }
+
+      .login-title {
+        font-size: 22px;
+      }
     }
   `,
 })

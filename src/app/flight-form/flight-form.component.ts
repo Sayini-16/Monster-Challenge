@@ -135,6 +135,9 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
                   [matDatepicker]="picker"
                   formControlName="arrivalDate"
                   [min]="today"
+                  readonly
+                  (click)="picker.open()"
+                  style="cursor: pointer"
                 />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -323,18 +326,20 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       display: flex;
       justify-content: center;
       padding: 32px 16px;
+      background: #f7f7f7;
+      min-height: calc(100vh - 64px);
     }
 
     .form-card {
       width: 100%;
       max-width: 620px;
       padding: 36px;
-      animation: cardSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: cardSlide 0.4s ease-out;
     }
 
     @keyframes cardSlide {
-      from { opacity: 0; transform: translateY(16px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ── Form Header ── */
@@ -346,11 +351,11 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     }
 
     .header-icon-wrap {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(0, 200, 83, 0.2), rgba(0, 200, 83, 0.05));
-      border: 1px solid rgba(0, 200, 83, 0.25);
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: rgba(140, 198, 63, 0.1);
+      border: 1px solid rgba(140, 198, 63, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -358,29 +363,31 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     }
 
     .header-icon-wrap mat-icon {
-      color: #00c853 !important;
-      font-size: 26px;
-      width: 26px;
-      height: 26px;
+      color: #8cc63f !important;
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
     }
 
     .form-title {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 22px;
-      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: #222222;
       margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .form-subtitle {
-      color: rgba(255, 255, 255, 0.45);
+      color: #888888;
       font-size: 14px;
       margin: 4px 0 0;
     }
 
     .form-divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0, 200, 83, 0.2), transparent);
+      background: #e5e5e5;
       margin-bottom: 20px;
     }
 
@@ -391,9 +398,9 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       gap: 6px;
       margin-bottom: 24px;
       padding: 16px 20px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      background: #f7f7f7;
+      border: 1px solid #eeeeee;
     }
 
     .step {
@@ -401,52 +408,58 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       align-items: center;
       gap: 10px;
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.4);
-      transition: all 0.3s ease;
+      color: #888888;
+      transition: all 0.25s ease;
     }
 
     .step strong {
-      color: rgba(255, 255, 255, 0.55);
+      color: #555555;
     }
 
     .step-num {
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #f0f0f0;
+      border: 1px solid #ddd;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       flex-shrink: 0;
-      transition: all 0.3s ease;
+      color: #888888;
+      transition: all 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .step-connector {
       width: 1px;
       height: 10px;
-      background: rgba(255, 255, 255, 0.08);
+      background: #e5e5e5;
       margin-left: 11px;
     }
 
     .step-done {
-      color: #00c853;
+      color: #222222;
     }
 
     .step-done strong {
-      color: #00c853;
+      color: #8cc63f;
     }
 
     .step-done .step-num {
-      background: rgba(0, 200, 83, 0.15);
-      border-color: rgba(0, 200, 83, 0.4);
-      color: #00c853;
-      box-shadow: 0 0 12px rgba(0, 200, 83, 0.15);
+      background: rgba(140, 198, 63, 0.12);
+      border-color: rgba(140, 198, 63, 0.4);
+      color: #8cc63f;
     }
 
     /* ── Fields ── */
+    form .full-width,
+    form .field-row {
+      margin-bottom: 8px;
+    }
+
     .full-width {
       width: 100%;
     }
@@ -464,18 +477,18 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     .verify-button {
       margin-top: 4px;
       height: 56px;
+      min-width: 120px;
       white-space: nowrap;
-      gap: 6px;
     }
 
     .verified-icon {
-      color: #00c853 !important;
-      animation: verifyPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #8cc63f !important;
+      animation: verifyPop 0.4s ease-out;
     }
 
     @keyframes verifyPop {
       0% { transform: scale(0); opacity: 0; }
-      60% { transform: scale(1.3); }
+      60% { transform: scale(1.2); }
       100% { transform: scale(1); opacity: 1; }
     }
 
@@ -486,20 +499,24 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       gap: 10px;
       padding: 12px 16px;
       margin: -8px 0 16px;
-      border-radius: 10px;
-      background: rgba(255, 213, 79, 0.08);
-      border: 1px solid rgba(255, 213, 79, 0.15);
-      color: #ffd54f;
+      border-radius: 4px;
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      color: #f57c00;
       font-size: 14px;
+    }
+
+    .flight-warning mat-icon {
+      color: #f57c00 !important;
     }
 
     /* ── Leg Picker ── */
     .leg-picker {
       margin: -8px 0 16px;
       padding: 18px;
-      border-radius: 14px;
-      background: rgba(0, 200, 83, 0.04);
-      border: 1px solid rgba(0, 200, 83, 0.12);
+      border-radius: 8px;
+      background: rgba(140, 198, 63, 0.04);
+      border: 1px solid rgba(140, 198, 63, 0.2);
     }
 
     .leg-picker-label {
@@ -507,9 +524,13 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       align-items: center;
       gap: 8px;
       margin: 0 0 14px;
-      font-weight: 500;
-      color: #00c853;
+      font-weight: 600;
+      color: #7ab635;
       font-size: 14px;
+    }
+
+    .leg-picker-label mat-icon {
+      color: #8cc63f !important;
     }
 
     .leg-picker mat-radio-group {
@@ -521,16 +542,16 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     .leg-option {
       display: block;
       padding: 14px 16px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      transition: all 0.2s ease;
     }
 
     .leg-option:hover {
-      border-color: rgba(0, 200, 83, 0.3);
-      background: rgba(0, 200, 83, 0.06);
-      box-shadow: 0 4px 16px rgba(0, 200, 83, 0.1);
+      border-color: rgba(140, 198, 63, 0.5);
+      background: rgba(140, 198, 63, 0.04);
+      box-shadow: 0 2px 8px rgba(140, 198, 63, 0.1);
     }
 
     .leg-info {
@@ -540,34 +561,36 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     }
 
     .leg-route {
-      font-weight: 600;
+      font-weight: 700;
       font-size: 15px;
-      color: #ffffff;
+      color: #222222;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .leg-iata {
-      background: rgba(0, 200, 83, 0.12);
-      border: 1px solid rgba(0, 200, 83, 0.2);
+      background: rgba(140, 198, 63, 0.1);
+      border: 1px solid rgba(140, 198, 63, 0.25);
       padding: 2px 8px;
-      border-radius: 6px;
+      border-radius: 4px;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.5px;
+      color: #7ab635;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .leg-arrow {
       font-size: 16px;
       width: 16px;
       height: 16px;
-      color: rgba(255, 255, 255, 0.3);
+      color: #cccccc;
     }
 
     .leg-details {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.45);
+      color: #888888;
     }
 
     .leg-time {
@@ -575,8 +598,8 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       align-items: center;
       gap: 4px;
       font-size: 13px;
-      font-weight: 500;
-      color: #00c853;
+      font-weight: 600;
+      color: #8cc63f;
     }
 
     .leg-time-icon {
@@ -588,12 +611,9 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
     /* ── Submit ── */
     .submit-button {
       margin-top: 12px;
-      height: 52px;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      height: 50px;
+      font-size: 15px;
+      border-radius: 4px;
     }
 
     /* ── Result Cards ── */
@@ -602,64 +622,66 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       max-width: 500px;
       padding: 48px 36px;
       text-align: center;
-      animation: cardSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: cardSlide 0.4s ease-out;
     }
 
     .result-card h2 {
-      font-family: 'Poppins', sans-serif;
-      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      color: #222222;
       font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
       margin: 20px 0 12px;
     }
 
     .success-badge {
-      width: 72px;
-      height: 72px;
+      width: 68px;
+      height: 68px;
       margin: 0 auto;
       border-radius: 50%;
-      background: linear-gradient(135deg, #00c853, #00a844);
+      background: #8cc63f;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(0, 200, 83, 0.35);
-      animation: badgePop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 16px rgba(140, 198, 63, 0.3);
+      animation: badgePop 0.5s ease-out;
     }
 
     .error-badge {
-      width: 72px;
-      height: 72px;
+      width: 68px;
+      height: 68px;
       margin: 0 auto;
       border-radius: 50%;
-      background: linear-gradient(135deg, #ef5350, #c62828);
+      background: #d32f2f;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(239, 83, 80, 0.3);
+      box-shadow: 0 4px 16px rgba(211, 47, 47, 0.25);
     }
 
     .success-badge mat-icon,
     .error-badge mat-icon {
-      font-size: 36px;
-      width: 36px;
-      height: 36px;
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
       color: white;
     }
 
     @keyframes badgePop {
-      0% { transform: scale(0) rotate(-45deg); }
-      60% { transform: scale(1.15) rotate(0); }
-      100% { transform: scale(1) rotate(0); }
+      0% { transform: scale(0); }
+      60% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     .result-summary {
       font-size: 15px;
       line-height: 1.7;
       margin-bottom: 20px;
-      color: rgba(255, 255, 255, 0.6);
+      color: #555555;
     }
 
     .result-summary strong {
-      color: #ffffff;
+      color: #222222;
     }
 
     .result-details {
@@ -674,60 +696,23 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       align-items: center;
       gap: 6px;
       padding: 8px 16px;
-      border-radius: 10px;
-      background: rgba(0, 200, 83, 0.08);
-      border: 1px solid rgba(0, 200, 83, 0.15);
-      color: #00c853;
+      border-radius: 4px;
+      background: rgba(140, 198, 63, 0.08);
+      border: 1px solid rgba(140, 198, 63, 0.2);
+      color: #7ab635;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .detail-chip mat-icon {
       font-size: 18px;
       width: 18px;
       height: 18px;
-      color: #00c853 !important;
-    }
-
-    .crm-response {
-      margin-bottom: 24px;
-      border-radius: 12px;
-      background: rgba(0, 200, 83, 0.04);
-      border: 1px solid rgba(0, 200, 83, 0.12);
-      overflow: hidden;
-      text-align: left;
-    }
-
-    .crm-response-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      background: rgba(0, 200, 83, 0.08);
-      font-size: 13px;
-      font-weight: 600;
-      color: #00c853;
-    }
-
-    .crm-response-header mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-      color: #00c853 !important;
-    }
-
-    .crm-response-body {
-      padding: 14px 16px;
-      margin: 0;
-      font-family: 'Roboto Mono', monospace;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
-      white-space: pre-wrap;
-      word-break: break-word;
+      color: #8cc63f !important;
     }
 
     .reset-btn {
-      gap: 6px;
+      height: 44px;
     }
 
     .error-actions {
@@ -751,15 +736,14 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
       }
 
       .header-icon-wrap {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
+        width: 40px;
+        height: 40px;
       }
 
       .header-icon-wrap mat-icon {
-        font-size: 22px;
-        width: 22px;
-        height: 22px;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
       }
 
       .result-details {
